@@ -1,0 +1,30 @@
+.navbar{
+    background: black!important ;
+}
+.layout-container{
+    background: #1e2126!important;
+}
+body{
+    background: #777!important;
+}
+#trader .cardss{
+    background: #242833!important;
+}
+.dropdown-menu{
+    background-color: black!important;
+    color: white!important;
+}
+.dropdown-menu h1,h2,h3,h4,h5,h6,a,i{
+    color: white!important;
+}
+.dropdown-menu .card-body{
+    background-color: #242833!important;
+    border-radius: 7px;
+    color: white!important;
+    padding: 4px;
+    min-height: 50px;
+}
+#settings .dropdown-menu{
+    border-radius: 10px;
+    padding: 5px;
+  }
