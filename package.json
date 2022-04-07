@@ -98,9 +98,6 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "@vue/eslint-config-standard": "^5.1.2",
-    "core-js": "^3.3.3",
-    "eslint": "^6.7.2",
     "html-webpack-exclude-assets-plugin": "^0.0.7",
     "node-sass": "~4.14.1",
     "rename-webpack-plugin": "^2.0.0",
@@ -108,31 +105,6 @@
     "suppress-chunks-webpack-plugin": "^1.0.5",
     "vue-cryptoicon": "^0.18.0",
     "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/standard"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "overrides": [
-      {
-        "files": [
-          "**/__tests__/*.{j,t}s?(x)",
-          "**/tests/unit/**/*.spec.{j,t}s?(x)"
-        ],
-        "env": {
-          "jest": true
-        }
-      }
-    ]
   },
   "postcss": {
     "plugins": {
