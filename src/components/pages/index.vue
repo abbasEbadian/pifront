@@ -21,7 +21,7 @@ Vue.use(Trend)
 export default {
   name: 'dashboard-1',
   metaInfo: {
-    title: 'Dashboard 1 - Dashboards'
+    title: 'Home'
   },
   data () {
     return {
@@ -30,33 +30,30 @@ export default {
       brands: [],
       amount: [],
       info: [],
-      his: []
+      his: [],
+      userinfo:'',
     }
   },
   mounted () {
-    this.history()
+    this.get_user ()
   },
   methods: {
-    async price () {
+    async get_user () {
       await axios
-        .get('/indexprice')
+        .get('/userinfo')
         .then(response => {
-          this.info = response.data
-          setTimeout(() => {
-            this.price()
-          }, 5000)
+          if (!response.data[0].is_active) {
+            this.$swal('<div class="swal2-icon swal2-error swal2-icon-show" style="display: flex;"><span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span></div><h5>حساب شما مسدود شده است لطفا با پشتیبانی تماس حاصل فرمایید</h5>')
+            setTimeout(() => {
+              const toPath = this.$route.query.to || '/logout'
+              this.$router.push(toPath)
+            }, 2000)
+          }
+          this.userinfo = response.data[0]
+        })
+        .catch(() => {
         })
     },
-    async history () {
-      var start = (new Date(new Date().getTime() - (7 * 24 * 60 * 60 * 1000))).toISOString()
-      var end = new Date().toISOString()
-      await axios
-        .post('/indexhistory', { start: start, end: end })
-        .then(response => {
-          console.log(response.data)
-          this.his = response.data
-        })
-    }
   }
 }
 </script>

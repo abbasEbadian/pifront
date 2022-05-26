@@ -13,8 +13,11 @@ export default class themeChanger {
     }
     _removeDarkTheme() {
         const darkThemeLinkEl = document.querySelector('#dark-theme-style')
-        const parentNode = darkThemeLinkEl.parentNode
-        parentNode.removeChild(darkThemeLinkEl)
+        if (darkThemeLinkEl){
+            const parentNode = darkThemeLinkEl
+            parentNode.remove()
+        }
+        
     }
     _darkThemeSwitch() {
         const darkThemeLinkEl = document.querySelector('#dark-theme-style')

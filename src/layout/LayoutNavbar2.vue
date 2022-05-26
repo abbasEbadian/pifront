@@ -4,9 +4,24 @@
     <b-navbar-nav>
       <b-nav-item style="font:16px'arial'" href="/margin-trade/BTCUSDT">Trade</b-nav-item>
       <b-nav-item style="font:16px'arial'" href="/spot">Market</b-nav-item>
-      <b-nav-item style="font:16px'arial'" href="#">Support</b-nav-item>
+      <b-nav-item-dropdown v-if="store.state.isAuthenticated" :right="!isRtlMode" class="demo-navbar-user">
+          <template slot="button-content">
+            <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
+              <div v-if="store.state.isAuthenticated">
+              <span style="font:16px'arial'" class="px-1 mr-lg-2 ml-2 ml-lg-0">Support</span>
+              </div>
+            </span>
+          </template>
+          <div v-if="store.state.isAuthenticated">
+          <b-dd-item @click="email()"><i class="ion ion-ios-mail text-lightest"></i> &nbsp; Email </b-dd-item>
+          <b-dd-item disabled to="#"><i class="ion ion-ios-chatbubbles text-lightest"></i> &nbsp; Live Chat</b-dd-item>
+          <b-dd-item to="/tutorial"><i class="ion ion-ios-bookmarks text-lightest"></i> &nbsp;  Tutorial</b-dd-item>
+          <b-dropdown-item href="https://t.me/joinchat/F1PMdBfhAoyNyWTT7V7K7Q"><i class="ion ion-ios-contacts text-lightest"></i> &nbsp; Community </b-dropdown-item>
+          <b-dd-item to="/article"><i class="ion ion-md-volume-mute text-lightest"></i> &nbsp; Announcement </b-dd-item>
+          </div>
+        </b-nav-item-dropdown>
       </b-navbar-nav>
-    <a href="/" style="position:absolute ; height:60px  ; left:43% ; z-index:1 ; padding: 10px"><img src="https://www.pionex.com/static/media/icon_nav_logo.00fdaab1.svg" style="height:100%" alt=""></a>
+    <a href="/" style="position:absolute ; height:60px  ; left:43% ; z-index:1 ; padding: 10px"><img src="/caitexlogo.png" style="height:100%" alt=""></a>
       <a style="margin: 8px; color: #444444;" class=" d-lg-none d-xl-none d-lg-none  nav-item nav-link px-0 mr-lg-4" href="javascript:void(0)" @click="toggleSidenav">
       </a>
     <!-- Brand demo (see demo.css) -->
@@ -36,7 +51,7 @@
           <i v-else class="ion ion-md-sunny navbar-icon align-middle" style="margin-left:12px ; margin-right:12px "  @click="darkThemeSwitch"></i>
           </template>
         </b-nav-item>
-        <b-nav-item-dropdown v-if="store.state.isAuthenticated" no-caret :right="!isRtlMode" class="demo-navbar-notifications mr-lg-3">
+        <b-nav-item-dropdown v-if="store.state.isAuthenticated" no-caret :right="!isRtlMode" class="demo-navbar-notifications mr-lg-3 right">
           <template slot="button-content">
             <i class="ion ion-md-notifications-outline navbar-icon align-middle" @click="seen()"></i>
             <span v-if="nunseen" class="badge badge-primary badge-dot indicator"></span>
@@ -56,12 +71,12 @@
           </b-list-group>
           <b-list-group v-if="!notification.length" flush>
             <b-list-group-item href="javascript:void(0)" class="media d-flex align-items-center">
-                <h5 style="text-align:center; width:100%">پیامی دریافت نکرده اید</h5>
+                <h5 style="text-align:center; width:100%">No Notification Yet!</h5>
             </b-list-group-item>
           </b-list-group>
         </b-nav-item-dropdown>
 
-        <b-nav-item-dropdown v-if="store.state.isAuthenticated" no-caret :right="!isRtlMode" class="demo-navbar-messages mr-lg-3">
+        <b-nav-item-dropdown v-if="store.state.isAuthenticated" no-caret :right="!isRtlMode" class="demo-navbar-messages mr-lg-3 right">
           <template slot="button-content">
             <i class="ion ion-ios-mail navbar-icon align-middle" @click="read()"></i>
             <span v-if="tunseen" class="badge badge-primary badge-dot indicator"></span>
@@ -82,12 +97,12 @@
           </b-list-group>
           <b-list-group v-if="!tickets.length" flush>
             <b-list-group-item href="javascript:void(0)" class="media d-flex align-items-center">
-                <h5 style="text-align:center; width:100%">هنوز تیکتی ایجاد نکردید</h5>
+                <h5 style="text-align:center; width:100%">No Ticket Yet!</h5>
             </b-list-group-item>
           </b-list-group>
           <router-link to="/ticket">
           <div class="bg-primary text-center text-white font-weight-bold p-3">
-          ایجاد تیکت جدید
+          Create Ticket
           </div>
           </router-link>
           </b-nav-item-dropdown>
@@ -112,8 +127,8 @@
           <i class="ion ion-ios-contact" style="font-size:40px "></i>
           
           <a style="position:absolute ; left:75px">
-          Username not set <br>
-          ArmanSaheb@gmail.com
+          {{userinfo.last_name}} {{userinfo.first_name}}  <br>
+          {{userinfo.email}}
           </a>
            
           </b-dd-item>
@@ -130,12 +145,12 @@
           <b-dd-item><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Referral Program</b-dd-item>
           </b-card>
           <b-card style="padding:2%; border-radius:8px; margin-bottom:10px">
-          <b-dd-item @click="logout()"><i class="ion ion-ios-log-out text-danger"></i> &nbsp; خروج </b-dd-item>
+          <b-dd-item @click="logout()"><i class="ion ion-ios-log-out text-danger"></i> &nbsp; Logout </b-dd-item>
           </b-card>
           </div>
            <div v-if="!store.state.isAuthenticated">
-           <b-dd-item to="/login"><i class="ion ion-ios-person text-lightest"></i> &nbsp; ورود  </b-dd-item>
-          <b-dd-item to="/signup"><i class="ion ion-ios-mail text-lightest"></i> &nbsp;  ثبت نام</b-dd-item>
+           <b-dd-item to="/login"><i class="ion ion-ios-person text-lightest"></i> &nbsp; Login  </b-dd-item>
+          <b-dd-item to="/signup"><i class="ion ion-ios-mail text-lightest"></i> &nbsp;  Register</b-dd-item>
           </div>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -172,6 +187,9 @@ export default {
   beforeCreate () {
     setTimeout(() => {
     }, 300)
+  },
+  updated(){
+    this.get_user()
   },
   mounted () {
     this.get_notifications()
@@ -276,19 +294,8 @@ export default {
             }, 2000)
           }
           this.userinfo = response.data[0]
-          this.get_admin()
         })
         .catch(() => {
-          setTimeout(() => {
-            if (this.$store.state.isAuthenticated) {
-              if (this.$route.path !== '/user') {
-                alert('ابتدا اطلاعات کاربری را وارد کنید')
-                const toPath = this.$route.query.to || '/user'
-                this.$router.push(toPath)
-                this.get_admin()
-              }
-            }
-          }, 500)
         })
     },
     logout () {
@@ -307,7 +314,12 @@ export default {
 #profile .dropdown-menu{
   border-radius: 10px;
   padding: 5px;
+  left:-250px
 }
+.right .dropdown-menu{
+  left:-250px
+}
+
 #profile .dropdown-menu{
   left:-155px!important;
 }
@@ -321,5 +333,8 @@ export default {
 }
 #profile .dropdown-menu card-body{
   width:100%
+}
+.list-group-flush::-webkit-scrollbar{
+  display: none;
 }
 </style>

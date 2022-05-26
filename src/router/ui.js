@@ -70,9 +70,6 @@ export default [{
     path: 'treeview',
     component: () => import('@/components/ui/Treeview')
   }, {
-    path: 'vue-plyr',
-    component: () => import('@/components/ui/VuePlyr')
-  }, {
     path: 'vue-cropper',
     component: () => import('@/components/ui/VueCropper')
   }, {

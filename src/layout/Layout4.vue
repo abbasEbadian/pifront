@@ -6,16 +6,16 @@
       <div class="layout-container" style="background:#f5f6f7">
         <app-layout-navbar />
         <sidenav style="min-height:100%; width:15%;float:right;position:absolute;right:0;top:100px;margin:0 2.5%">
-            <h3 style="font:25px 'Yekan' bold; text-align:right">بازار ها</h3>
+            <h3 style="font:25px 'Yekan' bold; text-align:right">Pairs</h3>
             <br>
             <router-link v-bind:class="{ btnsactive: isMenuActive('/spot') }" class="btns" style="margin:5px;text-align:right;border-radius:15px;; width: 90% ; margin-right:10%!important ;padding:5px " to="spot">
-               <a style="margin-top:-5px;font:16px 'Yekan' ;">  اسپات</a><i class="fas fa-chart-pie" style="margin: 0 10px ; font-size:18px"></i>
+               <a style="margin-top:-5px;font:16px 'Yekan' ;">  Spot</a><i class="fas fa-chart-pie" style="margin: 0 10px ; font-size:18px"></i>
             </router-link>
             <router-link v-bind:class="{ btnsactive: isMenuActive('/leverage') }" class="btns" style="margin:5px;text-align:right;border-radius:15px;; width: 90% ; margin-right:10%!important ;padding:5px " to="leverage">
-              <a style="margin-top:-5px;font:16px 'Yekan' ;">  لوریج</a><i class="fas fa-balance-scale-right" style="margin: 0 10px ; font-size:18px"></i>
+              <a style="margin-top:-5px;font:16px 'Yekan' ;">  Leverage</a><i class="fas fa-balance-scale-right" style="margin: 0 10px ; font-size:18px"></i>
             </router-link>
             <router-link v-bind:class="{ btnsactive: isMenuActive('/ranks') }" class="btns" style="margin:5px;text-align:right;border-radius:15px;; width: 90% ; margin-right:10%!important ;padding:5px " to="ranks">
-              <a style="margin-top:-5px;font:16px 'Yekan' ;">  بیشترین ها</a><i class="fas fa-trophy" style="margin: 0 10px ; font-size:18px"></i>
+              <a style="margin-top:-5px;font:16px 'Yekan' ;">  Ranks</a><i class="fas fa-trophy" style="margin: 0 10px ; font-size:18px"></i>
             </router-link>
           
         </sidenav>

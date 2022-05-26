@@ -80,6 +80,9 @@ export default [
       path: '',
       component: () => import('@/components/dashboards/Dashboard2')
     }, {
+      path: 'tutorial',
+      component: () => import('@/components/adminpages/tutorial')
+    }, {
       path: 'verifybank',
       component: () => import('@/components/adminpages/verifybank')
     }, {

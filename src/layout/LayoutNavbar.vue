@@ -1,6 +1,6 @@
 <template>
 <div>
-  <b-navbar toggleable="lg" :variant="getLayoutNavbarBg()" class="layout-navbar align-items-lg-center container-p-x navbar">
+  <b-navbar toggleable="lg" :variant="getLayoutNavbarBg()" class="navbard layout-navbar align-items-lg-center container-p-x navbar">
     <b-navbar-nav>
       <b-nav-item style="font:16px'arial'" href="/margin-trade/BTCUSDT">Trade</b-nav-item>
       <b-nav-item style="font:16px'arial'" href="/spot">Market</b-nav-item>
@@ -17,12 +17,12 @@
           <b-dd-item @click="email()"><i class="ion ion-ios-mail text-lightest"></i> &nbsp; Email </b-dd-item>
           <b-dd-item disabled to="#"><i class="ion ion-ios-chatbubbles text-lightest"></i> &nbsp; Live Chat</b-dd-item>
           <b-dd-item to="/tutorial"><i class="ion ion-ios-bookmarks text-lightest"></i> &nbsp;  Tutorial</b-dd-item>
-          <b-dd-item to="/forum"><i class="ion ion-ios-contacts text-lightest"></i> &nbsp; Community </b-dd-item>
+          <b-dropdown-item href="https://t.me/joinchat/F1PMdBfhAoyNyWTT7V7K7Q"><i class="ion ion-ios-contacts text-lightest"></i> &nbsp; Community </b-dropdown-item>
           <b-dd-item to="/article"><i class="ion ion-md-volume-mute text-lightest"></i> &nbsp; Announcement </b-dd-item>
           </div>
         </b-nav-item-dropdown>
       </b-navbar-nav>
-    <a href="/" style="position:absolute ; height:60px  ; left:43% ; z-index:1 ; padding: 10px"><img src="https://www.pionex.com/static/media/icon_nav_logo.00fdaab1.svg" style="height:100%" alt=""></a>
+    <a href="/" style="position:absolute ; height:60px  ; left:43% ; z-index:1 ; padding: 10px"><img src="/caitexlogo.png" style="height:100%" alt=""></a>
       <a style="margin: 8px; color: #444444;" class=" d-lg-none d-xl-none d-lg-none  nav-item nav-link px-0 mr-lg-4" href="javascript:void(0)" @click="toggleSidenav">
       </a>
     <!-- Brand demo (see demo.css) -->
@@ -49,7 +49,7 @@
        
         </b-nav-item>
 
-        <b-nav-item-dropdown v-if="store.state.isAuthenticated" no-caret :right="!isRtlMode" class="demo-navbar-notifications mr-lg-3" id="settings">
+        <b-nav-item-dropdown v-if="store.state.isAuthenticated" no-caret :right="!isRtlMode" class="demo-navbar-notifications mr-lg-3 "  id="settings">
 
           <template slot="button-content" >
             <i class="ion ion-md-cog navbar-icon align-middle" @click="seen()"></i>
@@ -72,30 +72,30 @@
               <a>
                 <i style="; color:black" class="material-icons notranslate">language</i>
                 <a v-if="store.state.rtl === 'true'" style="position:absolute; top:5px;right:35px ; color:black"> زبان</a>
-                <a v-else style="position:absolute; top:5px;left:35px ; color:black"> زبان</a>
+                <a v-else style="position:absolute; top:5px;left:35px ; color:black"> Language</a>
 
                 </a><br>
                 <a v-b-modal.translate-modal style="margin-right:31px">
-                  تغییر  زبان سایت
+                  Select Language
                 </a>
             </b-card>
             <b-card hidden style=" border-radius:10px ; height: 85px">
               <a>
               <i style="; color:black" class="material-icons notranslate">candlestick_chart</i>
-                <a v-if="store.state.rtl === 'true'" style="position:absolute; top:5px;right:35px ; color:black"> زبان</a>
-                <a v-else style="position:absolute; top:5px;left:35px ; color:black"> زبان</a>
+                <a v-if="store.state.rtl === 'true'" style="position:absolute; top:5px;right:35px ; color:black"> Language</a>
+                <a v-else style="position:absolute; top:5px;left:35px ; color:black"> Language</a>
 
                 </a><br>
                 <a style="margin-right:31px">
-                  تغییر  زبان سایت
+                  Select Language
                 </a>
             </b-card>
             <b-card  style=" border-radius:10px ; height: 85px">
               <div>
                 <a>
                 <i style="; color:black" class="material-icons notranslate ">dark_mode</i>
-                <a  v-if="store.state.rtl === 'true'" style="position:absolute; top:5px;right:35px ; color:black">حالت تاریک</a>
-                <a  v-else style="position:absolute; top:5px;left:35px ; color:black">حالت تاریک</a>
+                <a  v-if="store.state.rtl === 'true'" style="position:absolute; top:5px;right:35px ; color:black">Dark Mode</a>
+                <a  v-else style="position:absolute; top:5px;left:35px ; color:black">Dark Mode</a>
                 <div v-if="store.state.rtl === 'true'" style="position:absolute ; left:5px ; top: 25px" @click="darkThemeSwitch()">
                     <switches  v-model="dark" theme="default"  type-bold="true" color="orange"></switches>
                 </div>
@@ -105,14 +105,14 @@
 
                 </a><br>
                 <a style="margin-right:31px">
-                  تغییر تم سایت به تاریک
+                  Select Theme
                 </a>
               </div>
             </b-card>
           </template>
         </b-nav-item-dropdown>
         
-        <b-nav-item-dropdown v-if="store.state.isAuthenticated" no-caret :right="!isRtlMode" class="demo-navbar-notifications mr-lg-3">
+        <b-nav-item-dropdown v-if="store.state.isAuthenticated" no-caret :right="!isRtlMode" class="demo-navbar-notifications mr-lg-3 right">
 
           <template slot="button-content">
             <i class="ion ion-md-notifications-outline navbar-icon align-middle" @click="seen()"></i>
@@ -133,13 +133,13 @@
           </b-list-group>
           <b-list-group v-if="!notification.length" flush>
             <b-list-group-item href="javascript:void(0)" class="media d-flex align-items-center">
-                <h5 style="text-align:center; width:100%">پیامی دریافت نکرده اید</h5>
+                <h5 style="text-align:center; width:100%">No Notification Yet!</h5>
             </b-list-group-item>
           </b-list-group>
         </b-nav-item-dropdown>
 
 
-        <b-nav-item-dropdown v-if="store.state.isAuthenticated" no-caret :right="!isRtlMode" class="demo-navbar-messages mr-lg-3">
+        <b-nav-item-dropdown v-if="store.state.isAuthenticated" no-caret :right="!isRtlMode" class="demo-navbar-messages mr-lg-3 right">
           <template slot="button-content">
             <i class="ion ion-ios-mail navbar-icon align-middle" @click="read()"></i>
             <span v-if="tunseen" class="badge badge-primary badge-dot indicator"></span>
@@ -160,12 +160,12 @@
           </b-list-group>
           <b-list-group v-if="!tickets.length" flush>
             <b-list-group-item href="javascript:void(0)" class="media d-flex align-items-center">
-                <h5 style="text-align:center; width:100%">هنوز تیکتی ایجاد نکردید</h5>
+                <h5 style="text-align:center; width:100%">No Ticket Yet!</h5>
             </b-list-group-item>
           </b-list-group>
           <router-link to="/ticket">
           <div class="bg-primary text-center text-white font-weight-bold p-3">
-          ایجاد تیکت جدید
+          Create Ticket
           </div>
           </router-link>
           </b-nav-item-dropdown>
@@ -190,8 +190,8 @@
           <i class="ion ion-ios-contact" style="font-size:40px "></i>
           
           <a style="position:absolute ; left:75px">
-          Username not set <br>
-          ArmanSaheb@gmail.com
+          {{userinfo.last_name}} {{userinfo.first_name}}  <br>
+          {{userinfo.email}}
           </a>
            
           </b-dd-item>
@@ -201,19 +201,19 @@
           {{credit.toFixed(2)}} USD
           </b-dd-item>
           <b-dd-divider style="border-color: white" />
-          <b-dd-item><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Deposit</b-dd-item>
-          <b-dd-item><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Withdraw</b-dd-item>
+          <b-dd-item to="/wallets"><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Deposit</b-dd-item>
+          <b-dd-item to="/wallets"><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Withdraw</b-dd-item>
           </b-card>
           <b-card style=" border-radius:8px; margin-bottom:10px">
           <b-dd-item><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Referral Program</b-dd-item>
           </b-card>
           <b-card style=" border-radius:8px; margin-bottom:10px">
-          <b-dd-item @click="logout()"><i class="ion ion-ios-log-out text-danger"></i> &nbsp; خروج </b-dd-item>
+          <b-dd-item @click="logout()"><i class="ion ion-ios-log-out text-danger"></i> &nbsp; Logout </b-dd-item>
           </b-card>
           </div>
            <div v-if="!store.state.isAuthenticated">
-           <b-dd-item to="/login"><i class="ion ion-ios-person text-lightest"></i> &nbsp; ورود  </b-dd-item>
-          <b-dd-item to="/signup"><i class="ion ion-ios-mail text-lightest"></i> &nbsp;  ثبت نام</b-dd-item>
+           <b-dd-item to="/login"><i class="ion ion-ios-person text-lightest"></i> &nbsp; Login  </b-dd-item>
+          <b-dd-item to="/signup"><i class="ion ion-ios-mail text-lightest"></i> &nbsp;  Register</b-dd-item>
           </div>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -278,7 +278,7 @@ export default {
     this.themeChanger = new themeChanger();
   },
   updated(){
-    
+    this.get_user()
   },
   methods: {
     checkgoo(){
@@ -411,19 +411,8 @@ export default {
             }, 2000)
           }
           this.userinfo = response.data[0]
-          this.get_admin()
         })
         .catch(() => {
-          setTimeout(() => {
-            if (this.$store.state.isAuthenticated) {
-              if (this.$route.path !== '/user') {
-                alert('ابتدا اطلاعات کاربری را وارد کنید')
-                const toPath = this.$route.query.to || '/user'
-                this.$router.push(toPath)
-                this.get_admin()
-              }
-            }
-          }, 500)
         })
     },
     logout () {
@@ -442,11 +431,11 @@ export default {
 #settings .dropdown-menu{
   border-radius: 10px;
   padding: 5px;
+  left:-250px
 }
 #settings .dropdown-menu .card-body{
     border-radius: 7px;
     padding: 4px;
-    margin-bottom: 5px;
 }
 #settings .dropdown-menu .card{
 
@@ -478,5 +467,8 @@ export default {
 }
 #profile .dropdown-menu card-body{
   width:100%
+}
+.list-group-flush::-webkit-scrollbar{
+  display: none;
 }
 </style>

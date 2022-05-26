@@ -45,7 +45,6 @@
     <cui-idle-vue />
     <cui-vue-form-wizard />
     <cui-perfect-scrollbar />
-    <cui-vue-plyr />
 
     <div class="cui-bottom-spacer" />
   </div>
@@ -91,7 +90,6 @@ import CuiVImg from './CuiVImg'
 import CuiIdleVue from './CuiIdleVue'
 import CuiVueFormWizard from './CuiVueFormWizard'
 import CuiPerfectScrollbar from './CuiPerfectScrollbar'
-import CuiVuePlyr from './CuiVuePlyr'
 
 export default {
   components: {
@@ -132,7 +130,6 @@ export default {
     'cui-idle-vue': CuiIdleVue,
     'cui-vue-form-wizard': CuiVueFormWizard,
     'cui-perfect-scrollbar': CuiPerfectScrollbar,
-    'cui-vue-plyr': CuiVuePlyr
   },
   metaInfo: {
     title: 'Plugins - Vue.js Complete UI'

@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" class="chartt" style="height:490px;overflow:auto">
   
-  <table style="border-top:transparent!important;border-radius:11px" class="table table-striped" :class="{'table-dark': store.state.dark === 'true'}" >
+  <table style="border-top:transparent!important;border-radius:11px;height:450px;overflow:auto" class="table table-striped" :class="{'table-dark': checkdark() === 'dark'}" >
     <thead>
       <tr style="border-style:none!important">
         <th style="padding:20px; text-align:center ; font-family:'arial'" class="col-1" @click="sort(0)"></th>
@@ -73,6 +73,9 @@ export default {
   }
   },
   methods: {
+    checkdark(){
+      return localStorage.getItem('dark')
+    },
     sort(s) {
     //if s == current sort, reverse
     if(s === this.currentSort) {
@@ -119,5 +122,20 @@ th{
 }
 td{
   border-style: none!important;
+}
+.chartt::-webkit-scrollbar {
+  width: 0px;
+}
+
+.chartt::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    width: 3px;
+    border-radius: 1px;
+}
+
+.chartt::-webkit-scrollbar-thumb {
+    border-radius: 1px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    width: 3px;
 }
 </style>

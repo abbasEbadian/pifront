@@ -20,7 +20,7 @@ import IconCrypto from "vue-cryptocurrency-icons";
 import SortedTablePlugin from "vue-sorted-table";
 
 
-axios.defaults.baseURL = 'http://77.232.43.147/api/v1/'
+axios.defaults.baseURL = 'https://caitex.net/api/v1/'
 
 // Required to enable animations on dropdowns/tooltips/popovers
 Popper.Defaults.modifiers.computeStyle.gpuAcceleration = false

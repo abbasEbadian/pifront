@@ -17,7 +17,7 @@ import themeSettings from '@/vendor/libs/theme-settings/theme-settings.js'
 import themeChanger from "./theme";
 export default {
   created () {
-    document.title = 'Look Ma!'
+    document.title = 'CAITEX'
   },
   computed: {
     isIdle () {
@@ -31,7 +31,7 @@ export default {
   name: 'app',
   metaInfo: {
     title: 'Index',
-    titleTemplate: '%s - Appwork'
+    titleTemplate: 'CAITEX - %s'
   },
   updated () {
     // Remove loading state
@@ -65,9 +65,9 @@ export default {
       }else{
         if(!this.$store.state.rtl === 'false'){
           alert(2)
-            this.$store.commit('setrtl', true)
-            localStorage.setItem('rtl' , true)
-            themeSettings.setRtl(true)
+            this.$store.commit('setrtl', false)
+            localStorage.setItem('rtl' , false)
+            themeSettings.setRtl(false)
           }
       }
     setTimeout(() => document.body.classList.remove('app-loading'), 1)
