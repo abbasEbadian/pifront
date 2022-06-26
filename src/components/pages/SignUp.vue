@@ -54,7 +54,7 @@ import axios from 'axios'
 export default {
   name: 'pages-authentication-login-v1',
   metaInfo: {
-    title: 'Login v1 - Pages'
+    title: 'Create account'
   },
   data: () => ({
     errors: [],
@@ -67,9 +67,6 @@ export default {
     repassword: '',
     reptool: ''
   }),
-  mounted () {
-    document.title = 'Log In | Exchange'
-  },
   methods: {
     async  submitForm () {
       this.errors = []
@@ -115,7 +112,7 @@ export default {
         await axios
           .post('/users/', formData)
           .then(response => {
-            this.$swal('<div class="swal2-header"><ul class="swal2-progress-steps" style="display: none;"></ul><div class="swal2-icon swal2-success swal2-icon-show" style="display: flex;"><div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div><span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span><div class="swal2-success-ring"></div> <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div><div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div></div><img class="swal2-image" style="display: none;"><button type="button" class="swal2-close" aria-label="Close this dialog" style="display: none;">×</button></div>' + '<h5>ثبت نام شما با موفقیت انجام شد . به صفحه ورود منتقل میشوید</h5>')
+            this.$swal('<div class="swal2-header">test<ul class="swal2-progress-steps" style="display: none;"></ul><div class="swal2-icon swal2-success swal2-icon-show" style="display: flex;"><div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div><span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span><div class="swal2-success-ring"></div> <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div><div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div></div><img class="swal2-image" style="display: none;"><button type="button" class="swal2-close" aria-label="Close this dialog" style="display: none;">×</button></div>' + '<h5>ثبت نام شما با موفقیت انجام شد . به صفحه ورود منتقل میشوید</h5>')
             setTimeout(() => {
               const toPath = this.$route.query.to || '/login'
               this.$router.push(toPath)

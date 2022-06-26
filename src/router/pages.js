@@ -23,7 +23,9 @@ export default [
     // Layout 2
     path: '/',
     component: Layout2,
-    children: [ {
+    children: [
+     
+      {
       path: 'trades/:id',
       component: () => import('@/components/pages/Trades')
     }, {
@@ -136,7 +138,9 @@ export default [
       },{
         path: 'ranks',
         component: () => import('@/components/pages/ranks')
-      }],
+      },
+      ],
+      
     },{
       // Layout 5
       path: '/',
@@ -156,10 +160,20 @@ export default [
       },{
         path: '/margin-trade/:sym',
         component: () => import('@/components/pages/oltrade')
-      }, {
+      },
+       {
         path: 'user',
         component: () => import('@/components/pages/User')
-      }, {
+      },
+      {
+        path: '/payments/deposit',
+        component: ()=> import("@/components/pages/PaymentDeposit")
+      },
+      {
+        path: '/payments/withdraw',
+        component: ()=> import("@/components/pages/PaymentWithdraw")
+      },
+       {
         path: '/wallets',
         component: () => import('@/components/pages/wallets')
       }, {
