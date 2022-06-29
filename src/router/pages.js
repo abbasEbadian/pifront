@@ -173,6 +173,10 @@ export default [
         path: '/payments/withdraw',
         component: ()=> import("@/components/pages/PaymentWithdraw")
       },
+      {
+        path: '/payments/result/:payment_id',
+        component: ()=> import("@/components/pages/PaymentResult")
+      },
        {
         path: '/wallets',
         component: () => import('@/components/pages/wallets')

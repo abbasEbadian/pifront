@@ -4,12 +4,12 @@
       <b-card-header>
         <h2>مجموع دارایی</h2>
       </b-card-header>
-    <GChart
-      type="PieChart"
-      :options="options"
-      :data="data"
-    />    <br>
-    <h4 style="text-align:center">مجموع دارایی : {{allamount.toFixed(2)}}</h4>
+        <div class="d-flex align-items-center justify-content-between p-2 border-bottom" v-for="(data, index) in chartData" :key="index" style="font-size: 16px;">
+          <span>{{ data[0] }}</span>
+          <span>{{ data[1] }}</span>
+        </div>
+       <br>
+    <!-- <h4 style="text-align:center">مجموع دارایی : {{allamount.toFixed(2)}}</h4> -->
     <div class="row">
             <div class="col-12 col-sm-6">
               <router-link to="/payments/deposit">
@@ -85,7 +85,7 @@
 
 <script>
 import axios from 'axios'
-import { GChart } from "vue-google-charts";
+import { GChart } from 'vue-google-charts/legacy';
 export default {
   name: 'pages-forums-list',
   metaInfo: {
@@ -114,10 +114,12 @@ export default {
     prices: [],
     prices2: [],
     temp: {},
-    data: [['Currency', 'Balance']],
+    chartData: [['Currency', 'Balance']],
       options: {
         backgroundColor: "#ececec",
         responsive : true,
+        width: 200,
+        height: 200,
       }
   }),
   methods: {
@@ -211,6 +213,8 @@ export default {
         .get('/wallet')
         .then(response => {
           this.wallets2 = response.data
+          this.chartData = response.data.map(d=>([d.get_currency, d.amount]))
+          console.log(response.data.map(d=>[d.get_currency, d.amount])[0])
         }).then(() => {
           this.getc()
         })

@@ -85,6 +85,27 @@
 		</div> 
 		
 	</div>
+	<div class="col-12 col-lg-10 mx-auto">
+		<h3 class="mt-5">Deposit fee table</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Currency</th>
+					<th>Commision</th>
+					<th>Network Fee</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(fee, index) in fees" :key="index">
+					<td>{{ index+1 }}</td>
+					<td>{{ fee.currency }}</td>
+					<td>{{ fee.commission }}</td>
+					<td>{{ fee.network_fee }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 	
 </template>
@@ -92,7 +113,7 @@
 <script>
 import { reactive, ref, watch, h } from "vue";
 import { deposit, get_pair_price, profile, withdraw, assets } from "../api";
-
+import axios from 'axios'
 
 
 export default {
@@ -234,6 +255,22 @@ export default {
 		})
 		.finally(e=>{
 			this.pair_loading = false
+		})
+
+		axios.get("/request/commision")
+		.then(({data}) => {
+			this.fees = Object.keys(data).filter(i=>i !== 'litecointestnet').map(key => {
+				
+				return {
+					currency: key, 
+					commission: data[key].payout.commission,
+					network_fee: data[key].payout.network_fee
+				}
+				
+			})
+		})
+		.catch(e=>{
+			console.log(e)
 		})
 	}
 }

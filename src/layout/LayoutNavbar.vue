@@ -198,11 +198,11 @@
           </b-card>
           <b-card style=" border-radius:8px; margin-bottom:10px">
           <b-dd-item to="/wallets"><i class="ion ion-ios-mail text-lightest"></i> &nbsp; My Balance  <br>
-          {{credit.toFixed(2)}} USD
+          {{credit}} USD
           </b-dd-item>
           <b-dd-divider style="border-color: white" />
-          <b-dd-item to="/wallets"><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Deposit</b-dd-item>
-          <b-dd-item to="/wallets"><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Withdraw</b-dd-item>
+          <b-dd-item to="/payments/deposit"><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Deposit</b-dd-item>
+          <b-dd-item to="/payments/withdraw"><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Withdraw</b-dd-item>
           </b-card>
           <b-card style=" border-radius:8px; margin-bottom:10px">
           <b-dd-item><i class="ion ion-md-settings text-lightest"></i> &nbsp;  Referral Program</b-dd-item>
@@ -231,7 +231,6 @@ import axios from 'axios'
 import TranslateModal from "./TranslateModal";
 import CurrencyModal from "./CurrencyModal";
 import themeChanger from "../theme";
-import themeSettings from '@/vendor/libs/theme-settings/theme-settings.js'
 import Switches from 'vue-switches';
 import { Translator } from 'vue-google-translate';
 
@@ -252,7 +251,6 @@ export default {
   data () {
     return {
       dark: '',
-      credit: 0,
       showMobileMenu: false,
       userinfo: {
       },
@@ -266,6 +264,23 @@ export default {
   beforeCreate () {
     setTimeout(() => {
     }, 300)
+  },
+  computed: {
+    credit() {
+      console.log(this.$store.state.rates, this.$store.state.user.wallet_set)
+      let t = 0
+      if(this.$store.state.user && this.$store.state.user.wallet_set){
+        t = this.$store.state.user.wallet_set.reduce((total, current) => {
+
+            const k = current.currency.symbol + "USD"
+            const rate = this.$store.state.rates[k]
+            return total +  (current.amount * rate)
+
+        }, 0)
+      }
+
+      return Number(t).toFixed(3)
+    }
   },
   mounted () {
     this.checkgoo()
@@ -424,7 +439,8 @@ export default {
       this.$store.commit('removeToken')
       this.$router.push('/login')
     }
-  }
+  },
+
 }
 </script>
 <style>

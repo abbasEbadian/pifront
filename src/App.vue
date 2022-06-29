@@ -27,6 +27,35 @@ export default {
   methods: {
   },
   mounted () {
+    
+
+    axios.get("/userinfo")
+    .then(({data: r})=>{
+      this.$store.commit('setUser', r && r[0])
+    })
+    .catch(e=>{
+      console.log(e)
+    })
+
+
+    fetch("https://www.alfacoins.com/api/rates.json", {
+      headers: {accept: "application/json"}
+    })
+    .then(res => {
+      return res.json()
+    })
+    .then(r=>{
+      const d = {}
+      Object.keys(r).map(key => {
+        let k = key + "USD"
+        let v = r[key].find(g => g["code"] === "USD")
+        d[k] = +v['rate']
+      })
+      this.$store.commit('setRates', d)
+    })
+    .catch(e=>{
+      console.log(e)
+    })
   },
   name: 'app',
   metaInfo: {

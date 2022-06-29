@@ -8,12 +8,7 @@
 			<form action="" class="form d-flex flex-column align-items-stretch">
 				<h2 class="text-center">Withdraw</h2>
 
-				<!-- <a-form-item name="amount">
-					<a-radio-group v-model:value="formState.test" style="width: 100%">
-						<a-radio-button :value="1">Test</a-radio-button>
-						<a-radio-button :value="0">Real</a-radio-button>
-					</a-radio-group>
-				</a-form-item> -->
+			
 				<label for="currency" class="mt-4 pb-2">Currency: </label>
 				<select name="currency" id="" class="form-select" v-model="selectedCurrency">
 					<option v-for="option in currencies" :key="option.value" :value="option.value" >
@@ -21,45 +16,16 @@
 					</option>
 				</select>
 
-				<!-- <a-form-item label="Currency" name="currency" :rules="[{ required: false }]">
-					<a-select ref="select" v-model="selectedCurrency" :options="currencies">
-					</a-select>
-				</a-form-item> -->
-				<label for="amount"  class="mt-4 pb-2">Amount in usd: </label>
+				
+				<label for="amount"  class="mt-4 pb-2">Amount in {{ selectedCurrency }}: </label>
 				<input type="number" name="amount" class="form-control"  v-model="formState.amount" step="0.1" />
-				<template >
-						<span v-if="!pair_loading">
-							≈ {{ Number(+pair_value * formState.amount).toFixed(4) }} 
-						</span>
-						<template v-else>
-							<a-spin  size="small"/>
-						</template>
-					</template>
-				<!-- <a-form-item :label="'Amount in usd'" name="amount"
-					:rules="[{ required: false, message: 'Please input your Amount!' }]">
-					<input-number style="width: 100%" :precision="2" :step="0.1" v-model="formState.amount">
-					<template #addonAfter >
-						<span v-if="!pair_loading">
-							≈ {{ Number(+pair_value * formState.amount).toFixed(4) }} 
-						</span>
-						<template v-else>
-							<a-spin  size="small"/>
-						</template>
-					</template>
-					</input-number>
-				</a-form-item> -->
+				<small>Balance: {{ balance|| 0}}</small>
+			
 				<label for="address"  class="mt-4 pb-2">Address: </label>
 				<input  name="address" class="form-control" v-model="formState.withdrawAddress" step="0.1"  />
-				<!-- <a-form-item :label="'Wallet address'" name="amount" v-if="formState.action === 'withdraw'"
-					>
-					<a-input style="width: 100%"  v-model="formState.withdrawAddress">
-					</a-input>
-				</a-form-item> -->
-
+				
 
 				<button type="button" class="btn btn-primary" @click="_withdraw">Withdraw</button>
-				<!-- <a-button html-type="submit" type="primary"  :loading="loading" v-if=" formState.action === 'deposit'">Pay</a-button>
-				<a-button html-type="submit" type="primary" @click="_withdraw" :loading="loading" v-else>Withdraw</a-button> -->
 			</form>
 
 
@@ -71,7 +37,7 @@
 			Withdraws:
 			<div  v-if="user && user.withdraw_set && user.withdraw_set.length > 0">
 				<template v-for="(f, index) in user&&user.withdraw_set||[]" >
-					<div :key="index + 1">
+					<div :key="index" >
 						<hr />
 						<span > {{ f.manupulated_amount + ' ' + f.currency}}</span>
 						<p>Status: {{ f.status }}</p>
@@ -82,11 +48,33 @@
 
 		</div>
 	</div>
+	<div class="col-12 col-lg-10 mx-auto">
+		<h3 class="mt-5">Withdrawal fee table</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Currency</th>
+					<th>Commision</th>
+					<th>Network Fee</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(fee, index) in fees" :key="index">
+					<td>{{ index+1 }}</td>
+					<td>{{ fee.currency }}</td>
+					<td>{{ fee.commission }}</td>
+					<td>{{ fee.network_fee }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 	
 </template>
 
 <script>
+import axios from 'axios'
 import Swal from "sweetalert2";
 import { reactive, ref, watch, h } from "vue";
 import { deposit, get_pair_price, profile, withdraw, assets } from "../api";
@@ -115,7 +103,9 @@ export default {
 			pair: "",
 			pair_value:"",
 			activeKey: '0',
-			activeKey2: '0'
+			activeKey2: '0',
+			fees: [],
+			balance: 0
 
 
 		}
@@ -125,6 +115,10 @@ export default {
 		openNotificationWithIcon :  (description) => console.log(description),
 		handleChange : (value) => {
 			this.selectedCurrency = value;
+			let v = this.user && this.user.wallet_set && this.user.wallet_set.find(i=>i.currency && i.currency.alfaname === value)
+			if(v){
+				this.balance = v.amount
+			}
 		},
 		_deposit() {
 			this.loading = true;
@@ -229,6 +223,19 @@ export default {
 			.finally(e=>{
 				this.pair_loading = false
 			})
+			let v = this.user && this.user.wallet_set && this.user.wallet_set.find(i=>i.currency && i.currency.alfaname === newVal)
+			if(v){
+				this.balance = v.amount
+				this.formState.amount = v.amount
+			}
+		},
+		user(newUser){
+			let v = newUser && newUser.wallet_set && newUser.wallet_set.find(i=>i.currency && i.currency.alfaname === this.selectedCurrency)
+			console.log(v,newUser , newUser.wallet_set )
+			if(v){
+				this.balance = v.amount
+				this.formState.amount = v.amount
+			}
 		}
 
 	},
@@ -244,7 +251,8 @@ export default {
 			const c = assets.map(item=>({label: item.name, value: item.alfaname}))
 			this.currencies = c
 			this.rawCurrencies = assets
-			this.selectedCurrency = c[0].value
+			this.selectedCurrency = c[0].value;
+			
 		})
 
 		.catch(e => console.log(e))
@@ -265,6 +273,22 @@ export default {
 		})
 		.finally(e=>{
 			this.pair_loading = false
+		})
+
+		axios.get("/request/commision")
+		.then(({data}) => {
+			this.fees = Object.keys(data).filter(i=>i !== 'litecointestnet').map(key => {
+				
+				return {
+					currency: key, 
+					commission: data[key].withdrawal.commission,
+					network_fee: data[key].withdrawal.network_fee
+				}
+				
+			})
+		})
+		.catch(e=>{
+			console.log(e)
 		})
 	}
 }

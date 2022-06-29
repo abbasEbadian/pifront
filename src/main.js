@@ -46,9 +46,17 @@ const store = new Vuex.Store({
     amount: [0],
     dark: false,
     farsi: true,
-    rtl: false
+    rtl: false,
+    rates: {},
+    user: {}
   },
   mutations: {
+    setRates(state, rates){
+      state.rates = rates
+    },
+    setUser(state, user){
+      state.user = user
+    },
     initializeStore (state) {
       if (localStorage.getItem('token')) {
         state.token = localStorage.getItem('token')
